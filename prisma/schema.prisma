@@ -15,12 +15,26 @@ datasource db {
 
 
 model User {
-  id            Int @id @default(autoincrement())
-  nombre        String
-  apellido      String
+  id            Int     @id @default(autoincrement())
+  nombre        String  
   edad          Int
-  correo        String @unique
+  correo        String  @unique
   password      String
-  img           String @default("/media")
+  img           String  @default("/media")
+  movimientos   Movimiento[]     
 }
+
+model Movimiento {
+  id_mov        Int     @id @default(autoincrement())  
+  movimiento    String
+  fecha         DateTime
+  isRm          Boolean
+  nota          String  @db.LongText
+  public        Boolean @default(false)
+  
+  userId        Int   
+  user          User    @relation(fields: [userId], references: [id])  
+}
+
+
 
